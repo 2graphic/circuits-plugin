@@ -10,7 +10,6 @@ export class BasicGate {
 }
 
 export class InputGate extends BasicGate {
-    image: "and_gate.svg";
     inputIndex: number;
 }
 
