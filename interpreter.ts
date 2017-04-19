@@ -112,8 +112,6 @@ export function step(state: State): State | Map<OutputGate, boolean> {
         const node: BasicGate = state.toVisit.shift();
         let result: boolean;
 
-        console.log(node);
-
         if (node instanceof AndGate) {
             result = applyOp(node, (a, b) => a && b, true);
         } else if (node instanceof OrGate) {
