@@ -33,7 +33,7 @@ export class OrGate extends BasicGate {
         return "or_gate.svg";
     }
     get anchorPoints() {
-        return [{ x: -10, y: -10 }, { x: -10, y: 10 }, { x: 10, y: 0 }]
+        return [{ x: -10, y: -10 }, { x: -10, y: 10 }, { x: 10, y: 0 }];
     }
 }
 
