@@ -1,4 +1,4 @@
-export type Nodes = AndGate | OrGate | NotGate | InputGate | OutputGate;
+export type Nodes = InputGate | AndGate | OrGate | NotGate | OutputGate;
 export type Edges = Wire;
 export type Graph = Circuit;
 
@@ -17,12 +17,21 @@ export class OutputGate extends BasicGate {
 }
 
 export class NotGate extends BasicGate {
+    get image() {
+        return "not_gate.svg";
+    }
 }
 
 export class AndGate extends BasicGate {
+    get image() {
+        return "and_gate.svg";
+    }
 }
 
 export class OrGate extends BasicGate {
+    get image() {
+        return "or_gate.svg";
+    }
 }
 
 export class Wire {
