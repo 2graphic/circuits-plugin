@@ -32,6 +32,9 @@ export class OrGate extends BasicGate {
     get image() {
         return "or_gate.svg";
     }
+    get anchorPoints() {
+        return [{ x: -10, y: -10 }, { x: -10, y: 10 }, { x: 10, y: 0 }]
+    }
 }
 
 export class Wire {
