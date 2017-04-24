@@ -1,3 +1,5 @@
+function hidden(target: any, key: string) { };
+
 export type Nodes = InputGate | AndGate | OrGate | NotGate | OutputGate;
 export type Edges = Wire;
 export type Graph = Circuit;
@@ -20,11 +22,17 @@ export class NotGate extends BasicGate {
     get image() {
         return "not_gate.svg";
     }
+    get anchorPoints() {
+        return [{ x: -25, y: 0 }, { x: 25, y: 0 }];
+    }
 }
 
 export class AndGate extends BasicGate {
     get image() {
         return "and_gate.svg";
+    }
+    get anchorPoints() {
+        return [{ x: -25, y: -10 }, { x: -25, y: 10 }, { x: 25, y: 0 }];
     }
 }
 
@@ -33,13 +41,15 @@ export class OrGate extends BasicGate {
         return "or_gate.svg";
     }
     get anchorPoints() {
-        return [{ x: -10, y: -10 }, { x: -10, y: 10 }, { x: 10, y: 0 }];
+        return [{ x: -25, y: -10 }, { x: -25, y: 10 }, { x: 25, y: 0 }];
     }
 }
 
 export class Wire {
     source: Nodes;
     destination: Nodes;
+
+    private get showDestinationArrow(){ return false };
 }
 
 export class Circuit {
@@ -78,7 +88,7 @@ function easyReduce<T, R>(arr: T[], func: (current: T, result: R) => R, initial:
 export class State {
     message: string;
 
-    constructor(public toVisit: Nodes[], public output: Map<OutputGate, boolean>,  public active: Nodes) {
+    constructor(public toVisit: Nodes[], @hidden public output: Map<OutputGate, boolean>,  public active: Nodes) {
         if (toVisit.length > 0) {
             this.message = toVisit.map((n) => n.label).join();
         } else {
