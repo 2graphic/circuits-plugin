@@ -1,4 +1,4 @@
-export type Nodes = InputGate | AndGate | OrGate | NotGate | OutputGate;
+export type Nodes = AndGate | OrGate | NotGate | InputGate | OutputGate;
 export type Edges = Wire;
 export type Graph = Circuit;
 
@@ -17,21 +17,12 @@ export class OutputGate extends BasicGate {
 }
 
 export class NotGate extends BasicGate {
-    get image() {
-        return "not_gate.svg";
-    }
 }
 
 export class AndGate extends BasicGate {
-    get image() {
-        return "and_gate.svg";
-    }
 }
 
 export class OrGate extends BasicGate {
-    get image() {
-        return "or_gate.svg";
-    }
 }
 
 export class Wire {
@@ -118,7 +109,7 @@ export function step(state: State): State | Map<OutputGate, boolean> {
     if (state.toVisit.length === 0) {
         return state.output;
     } else {
-        const node: BasicGate = state.toVisit.shift();
+        const node = state.toVisit.shift();
         let result: boolean;
 
         if (node instanceof AndGate) {
@@ -135,6 +126,6 @@ export function step(state: State): State | Map<OutputGate, boolean> {
         }
 
         node.value = result;
-        return new State(state.toVisit, state.output, node);
+        return new State(state.toVisit, new Map(state.output), node);
     }
 }
