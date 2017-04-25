@@ -49,7 +49,7 @@ export class Wire {
     source: Nodes;
     destination: Nodes;
 
-    private get showDestinationArrow(){ return false };
+    private get showDestinationArrow() { return false; };
 }
 
 export class Circuit {
