@@ -55,14 +55,14 @@ export class Circuit {
     nodes: Nodes[];
 }
 
-export function validateEdge(src: Nodes, dst?: Nodes, like?: Edges) {
+declare const console: any;
+export function validateEdge(src?: Nodes, dst?: Nodes, like?: Edges) {
     if (src instanceof OutputGate) {
         return false;
     }
     if (dst && dst instanceof InputGate) {
         return false;
     }
-
     return true;
 }
 
