@@ -1,4 +1,4 @@
-function hidden(target: any, key: string) { };
+function hidden(...args: any[]) { };
 
 export type Nodes = InputGate | AndGate | OrGate | NotGate | OutputGate;
 export type Edges = Wire;
