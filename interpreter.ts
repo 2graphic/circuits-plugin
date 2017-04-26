@@ -12,7 +12,6 @@ export class BasicGate {
 }
 
 export class InputGate extends BasicGate {
-    inputIndex: number;
 }
 
 export class OutputGate extends BasicGate {
