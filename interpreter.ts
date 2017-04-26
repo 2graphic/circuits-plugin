@@ -55,8 +55,15 @@ export class Circuit {
     nodes: Nodes[];
 }
 
-export function validateEdge(src: Nodes, dst: Nodes, like: Edges) {
-    return false;
+declare const console: any;
+export function validateEdge(src?: Nodes, dst?: Nodes, like?: Edges) {
+    if (src instanceof OutputGate) {
+        return false;
+    }
+    if (dst instanceof InputGate) {
+        return false;
+    }
+    return true;
 }
 
 function getTraversalOrder(circuit: Circuit): BasicGate[] {
