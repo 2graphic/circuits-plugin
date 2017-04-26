@@ -55,8 +55,15 @@ export class Circuit {
     nodes: Nodes[];
 }
 
-export function validateEdge(src: Nodes, dst: Nodes, like: Edges) {
-    return false;
+export function validateEdge(src: Nodes, dst?: Nodes, like?: Edges) {
+    if (src instanceof OutputGate) {
+        return false;
+    }
+    if (dst && dst instanceof InputGate) {
+        return false;
+    }
+
+    return true;
 }
 
 function getTraversalOrder(circuit: Circuit): BasicGate[] {
@@ -89,13 +96,11 @@ function easyReduce<T, R>(arr: T[], func: (current: T, result: R) => R, initial:
 }
 
 export class State {
-    message: string;
+    message: [Nodes, boolean];
 
-    constructor(public toVisit: Nodes[], @hidden public output: Map<OutputGate, boolean>,  public active: Nodes) {
-        if (toVisit.length > 0) {
-            this.message = toVisit.map((n) => n.label).join();
-        } else {
-            this.message = "finished";
+    constructor(public toVisit: Nodes[], @hidden public output: Map<OutputGate, boolean>, private active?: Nodes) {
+        if (active) {
+            this.message = [active, (active.value !== undefined) ? active.value : false];
         }
     }
 }
@@ -124,7 +129,7 @@ export function start(start: Circuit, input: Map<InputGate, boolean>): State | M
     }
 
     if (toVisit.length > 0) {
-        return new State(toVisit, new Map(), toVisit[0]);
+        return step(new State(toVisit, new Map(), undefined));
     } else {
         throw new Error("Error running plugin.");
     }
